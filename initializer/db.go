@@ -46,5 +46,7 @@ func ConnectDB() {
 func SyncDB() {
 	DB.AutoMigrate(&model.User{})
 	DB.AutoMigrate(&model.Oauth{})
-
+	DB.AutoMigrate(&model.Profile{})
+	DB.AutoMigrate(&model.Report{})
+	DB.AutoMigrate(&model.Record{})
 }
