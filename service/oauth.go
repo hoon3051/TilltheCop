@@ -9,6 +9,7 @@ import (
 	"github.com/hoon3051/TilltheCop/form"
 	"github.com/hoon3051/TilltheCop/initializer"
 	"github.com/hoon3051/TilltheCop/model"
+	"gorm.io/gorm"
 
 	"golang.org/x/oauth2"
 )
@@ -110,14 +111,14 @@ func (svc OauthService) SaveOauthUser(oauthToken *oauth2.Token, userInfo form.Oa
 	return user, token, nil
 }
 
-func (svc OauthService) Register(oauthToken *oauth2.Token, userId uint) error {
+func (svc OauthService) Register(tx *gorm.DB, oauthToken form.OauthToken, userId uint) error {
 	var oauthModel = model.Oauth{}
 	oauthModel.Provider = "google"
 	oauthModel.AccessToken = oauthToken.AccessToken
 	oauthModel.RefreshToken = oauthToken.RefreshToken
 	oauthModel.Expiry = oauthToken.Expiry
 	oauthModel.User_id = userId
-	result := initializer.DB.Create(&oauthModel)
+	result := tx.Create(&oauthModel)
 	if result.Error != nil {
 		return result.Error
 	}	

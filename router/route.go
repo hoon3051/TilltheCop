@@ -8,6 +8,7 @@ import (
 )
 
 var OauthController controller.OauthController
+var ProfileController controller.ProfileController
 
 func OauthRouter(router *gin.Engine) {
 	// 세션 스토어 설정
@@ -16,12 +17,19 @@ func OauthRouter(router *gin.Engine) {
 
 	router.GET("/oauth/google/login", OauthController.GoogleLogin)
 	router.GET("/oauth/google/callback", OauthController.GoogleCallback)
+	router.POST("/oauth/register", OauthController.Register)
+}
+
+func ProfileRouter(router *gin.Engine) {
+	router.GET("/profile/", ProfileController.GetProfile)
+	router.PUT("/profile/", ProfileController.UpdateProfile)
 }
 
 func SetupRouter() *gin.Engine {
 	router := gin.Default()
 
 	OauthRouter(router)
+	ProfileRouter(router)
 
 	return router
 }

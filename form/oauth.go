@@ -4,6 +4,7 @@ import (
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 	"os"
+	"time"
 )
 
 func GetGoogleOauthConfig() *oauth2.Config {
@@ -20,7 +21,7 @@ type OauthToken struct {
 	AccessToken  string `json:"access_token"`
 	TokenType    string `json:"token_type"`
 	RefreshToken string `json:"refresh_token"`
-	Expiry       string `json:"expiry"`
+	Expiry       time.Time `json:"expiry"`
 }
 
 type OauthUser struct {
