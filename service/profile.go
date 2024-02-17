@@ -27,9 +27,9 @@ func (svc ProfileService) CreateProfile(tx *gorm.DB , profileform form.ProfileFo
 
 }
 
-func (svc ProfileService) GetProfile(id uint) (model.Profile, error) {
+func (svc ProfileService) GetProfile(userID uint) (model.Profile, error) {
 	var profile model.Profile
-	result := initializer.DB.First(&profile, id)
+	result := initializer.DB.First(&profile, "user_id = ?", userID)
 	if result.Error != nil {
 		err := errors.New("failed to get profile")
 		return profile, err
@@ -38,9 +38,9 @@ func (svc ProfileService) GetProfile(id uint) (model.Profile, error) {
 	return profile, nil
 }
 
-func (svc ProfileService) UpdateProfile(id uint, profileform form.ProfileForm) (model.Profile, error) {
+func (svc ProfileService) UpdateProfile(userID uint, profileform form.ProfileForm) (model.Profile, error) {
 	var profile model.Profile
-	result := initializer.DB.First(&profile, id)
+	result := initializer.DB.First(&profile, "user_id = ?", userID)
 	if result.Error != nil {
 		err := errors.New("failed to get profile")
 		return profile, err

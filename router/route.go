@@ -1,10 +1,11 @@
 package router
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/hoon3051/TilltheCop/controller"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
+	"github.com/gin-gonic/gin"
+	"github.com/hoon3051/TilltheCop/controller"
+	"github.com/hoon3051/TilltheCop/middleware"
 )
 
 var OauthController controller.OauthController
@@ -21,6 +22,7 @@ func OauthRouter(router *gin.Engine) {
 }
 
 func ProfileRouter(router *gin.Engine) {
+	router.Use(middleware.AuthToken())
 	router.GET("/profile/", ProfileController.GetProfile)
 	router.PUT("/profile/", ProfileController.UpdateProfile)
 }
