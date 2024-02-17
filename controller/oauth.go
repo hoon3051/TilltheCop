@@ -184,7 +184,7 @@ func (ctr OauthController) Register(c *gin.Context) {
 		return
 	}
 
-	// Create profile in DB (service) // TODO 사용자 아이디 따오기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	// Create profile in DB (service) 
 	err = profileService.CreateProfile(tx, profileForm, userID)
 	if err != nil {
 		tx.Rollback()
