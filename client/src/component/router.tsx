@@ -3,6 +3,7 @@ import MainPage from "../page/main";
 import MapPage from "../page/map";
 import LoginPage from "../page/login";
 import CallbackPage from "../page/callback";
+import RegisterPage from "../page/register";
 
 
 
@@ -17,7 +18,8 @@ const RouteComponent = () => {
         <Route path="/" element={<MainPage />} />
         <Route path="/map" element={<MapPage />} />
         <Route path="/oauth/google/login" element={<LoginPage />} />
-        <Route path="/oauth/google/callback" element={<CallbackPage />} />      
+        <Route path="/oauth/google/callback" element={<CallbackPage />} />
+        <Route path="/oauth/register" element={<RegisterPage />} />      
     </Routes>
   );
 };
