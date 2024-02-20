@@ -100,8 +100,8 @@ func (ctr OauthController) GoogleCallback(c *gin.Context) {
 			return
 		}
 
-		// Redirect to create user page
-		c.Redirect(http.StatusTemporaryRedirect, "/oauth/register")
+		// Redirect to register page
+		c.Redirect(http.StatusTemporaryRedirect, "http://localhost:5173/oauth/register")
 
 	}
 	// if user exists (Login)
@@ -219,6 +219,6 @@ func (ctr OauthController) Register(c *gin.Context) {
 	}
 
 	// Redirect to login page
-	c.Redirect(http.StatusTemporaryRedirect, "/oauth/google/login")
+	c.JSON(http.StatusOK, gin.H{"message": "Successfully registered"})
 
 }

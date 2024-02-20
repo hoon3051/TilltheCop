@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { getMap } from '../api/map';
+import { Box, CircularProgress, Typography } from '@mui/material';
+
 
 const MapPage: React.FC = () => {
   const [mapURL, setMapURL] = useState<string>('');
@@ -40,14 +42,30 @@ const MapPage: React.FC = () => {
   };
 
   return (
-    <div className="MapPage">
-      <h2>Google Map</h2>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh',
+        width: '100vw',
+        textAlign: 'center',
+        p: 3, // 패딩
+      }}
+    >
+      <Typography variant="h4" gutterBottom component="div" sx={{
+        fontWeight: 'bold', // Assuming the header should be bold as per the sketch
+        marginBottom: '20px', // Adding space below the header
+      }}>
+        Google Map
+      </Typography>
       {loading ? (
-        <p>Loading...</p>
+        <CircularProgress />
       ) : (
-        mapURL && <iframe src={mapURL} width="600" height="450" title="Google Map"></iframe>
+        mapURL && <iframe src={mapURL} width="60%" height="500px" style={{ border: 'none', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)'  }} title="Google Map" />
       )}
-    </div>
+    </Box>
   );
 };
 

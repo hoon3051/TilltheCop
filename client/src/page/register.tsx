@@ -22,6 +22,10 @@ const RegisterPage: React.FC = () =>{
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
         const {name, value} = e.target
+        if(name === "age"){
+            setRegisterData({...registerData, [name]: parseInt(value)})
+            return
+        }
         setRegisterData({...registerData, [name]: value})
     }
 
@@ -39,6 +43,11 @@ const RegisterPage: React.FC = () =>{
             setMessage("회원가입이 성공적으로 완료되었습니다!");
             setMessageType("success");
             setOpenSnackbar(true);
+
+            // 회원가입 성공 시 1초 후 로그인 페이지로 이동
+            setTimeout(() => {
+                window.location.href = "/oauth/google/login";
+            }, 1000);
            
         } catch (error) {
             let errorMessage = "알 수 없는 에러가 발생했습니다";
@@ -66,53 +75,83 @@ const RegisterPage: React.FC = () =>{
     };    
 
 
-    return(
+    return (
         <>
-        <Box style={{
+          <Box style={{
             width: "100vw",
             height: "100vh",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
+            gap: "20px", // 입력 필드 간격 추가
+            padding: "20px", // 패딩 추가
+            boxSizing: "border-box", // 박스 크기 계산 방법 변경
+          }}>
+            <Typography variant="h2" component={"div"} style={{
+              fontWeight: 'bold', // 글씨 굵기 변경
+              marginBottom: '30px', // 제목 아래 여백 추가
             }}>
-            <Typography variant="h2" component={"div"}>회원가입</Typography>
+              회원가입
+            </Typography>
             <TextField
-            name="name"
-            required
-            autoFocus
-            value={registerData.name}
-            label="이름"
-            onChange={handleChange}
-            placeholder="정상훈"
+              name="name"
+              required
+              autoFocus
+              value={registerData.name}
+              label="이름"
+              onChange={handleChange}
+              placeholder="정상훈"
+              variant="outlined"
+              style={{
+                width: '20%', // 너비 설정
+              }}
             />
-            <TextField 
-            name="age"
-            required
-            value={registerData.age} 
-            label="나이" 
-            onChange={handleChange}
-            placeholder="20"
-            />
-            <TextField 
+            <TextField
+              name="age"
+              required
+              value={registerData.age}
+              label="나이"
+              onChange={handleChange}
+              placeholder="20"
+              type="number"
+              variant="outlined"
+              style={{
+                width: '20%', // 너비설정 
+            }}/>
+            <TextField
             name="gender"
             required
-            value={registerData.gender} 
-            label="성별" 
+            value={registerData.gender}
+            label="성별"
             onChange={handleChange}
             placeholder="남성"
+            variant="outlined"
+            style={{
+                width: '20%', // 너비 설정
+            }}
             />
-            <Button onClick={handleRegister}>
-                회원가입
+            <Button
+            onClick={handleRegister}
+            variant="contained"
+            style={{
+            marginTop: '20px', // 버튼 위 여백 추가
+            width: '15%', // 버튼 너비 설정
+            padding: '10px 0', // 버튼 패딩 설정
+            fontWeight: 'bold', // 글씨 굵기 변경
+            }}
+            >
+            회원가입
             </Button>
             <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
-                <Alert onClose={handleCloseSnackbar} severity={messageType} sx={{ width: '100%' }}>
-                    {message}
-                </Alert>
+            <Alert onClose={handleCloseSnackbar} severity={messageType} sx={{ width: '100%' }}>
+            {message}
+            </Alert>
             </Snackbar>
-        </Box>
-        </>
-    )
+            </Box>
+            </>
+            );
+
 
 }
 
