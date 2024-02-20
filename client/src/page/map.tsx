@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { getMap } from '../api/map';
 import { Box, CircularProgress, Typography } from '@mui/material';
+import Header from '../component/header';
 
 
 const MapPage: React.FC = () => {
@@ -42,6 +43,8 @@ const MapPage: React.FC = () => {
   };
 
   return (
+    <>
+    <Header />
     <Box
       sx={{
         display: 'flex',
@@ -66,6 +69,7 @@ const MapPage: React.FC = () => {
         mapURL && <iframe src={mapURL} width="60%" height="500px" style={{ border: 'none', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)'  }} title="Google Map" />
       )}
     </Box>
+    </>
   );
 };
 
