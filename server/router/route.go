@@ -13,6 +13,11 @@ import (
 var OauthController controller.OauthController
 var ProfileController controller.ProfileController
 var MapController controller.MapController
+var AuthController controller.AuthController
+
+func AuthRouter(router *gin.Engine) {
+	router.POST("/refresh", AuthController.RefreshToken)
+}
 
 func OauthRouter(router *gin.Engine) {
 	// 세션 스토어 설정
@@ -51,6 +56,7 @@ func SetupRouter() *gin.Engine {
 
 	router.Use(cors.New(config))
 
+	AuthRouter(router)
 	OauthRouter(router)
 	ProfileRouter(router)
 	MapRouter(router)

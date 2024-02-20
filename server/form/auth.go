@@ -23,14 +23,14 @@ type Token struct {
 	RefreshToken string `json:"refresh_token"`
 }
 
-type RefreshToken struct {
+type RefreshTokenForm struct {
 	// AccessToken  string `json:"access_token"`
-	RefreshToken string `json:"refresh_token"`
+	RefreshToken string `json:"refreshToken"`
 }
 
-func (f AuthForm) RefreshToken(refreshToken RefreshToken) string {
-	if refreshToken.RefreshToken == "" {
-		return "Refresh token is required"
+func (f RefreshTokenForm) Validate() string {
+	if f.RefreshToken == "" {
+		return "refreshToken is required"
 	}
 	return ""
 }
