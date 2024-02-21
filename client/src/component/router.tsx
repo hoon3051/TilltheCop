@@ -5,6 +5,7 @@ import CallbackPage from "../page/callback";
 import RegisterPage from "../page/register";
 import UpdateProfilePage from "../page/updateProfile";
 import ProfilePage from "../page/profile";
+import CodePage from "../page/code";
 
 
 
@@ -23,6 +24,7 @@ const RouteComponent = () => {
         <Route path="/oauth/register" element={<RegisterPage />} />      
         <Route path="/profile/update" element={<UpdateProfilePage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/code/:reportID" element={<CodePage />} />
 
     </Routes>
   );

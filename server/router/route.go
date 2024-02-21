@@ -46,7 +46,7 @@ func MapRouter(router *gin.Engine) {
 func CodeRouter(router *gin.Engine) {
 	router.Use(middleware.AuthToken())
 
-	router.GET("/code/:reportID", CodeController.GenerateQRCode)
+	router.GET("/code", CodeController.GenerateQRCode)
 }
 
 func SetupRouter() *gin.Engine {

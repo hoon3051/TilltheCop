@@ -20,7 +20,7 @@ func (ctr CodeController) GenerateQRCode(c *gin.Context) {
 		return
 	}
 
-	reportID := c.Param("reportID")
+	reportID := c.Query("reportID")
 	if reportID == "" {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "reportID is required"})
 		return
