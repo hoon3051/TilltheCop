@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserMultiFormatReader } from '@zxing/library';
 import { Box } from '@mui/material';
 import { scanCode } from '../api/code';
+import Header from '../component/header';
 
 const ScanCodePage: React.FC = () => {
 
@@ -38,6 +39,8 @@ const ScanCodePage: React.FC = () => {
   }, []);
 
   return (
+    <>
+    <Header />
     <Box
       sx={{
         display: 'flex',
@@ -71,6 +74,7 @@ const ScanCodePage: React.FC = () => {
         ></div>
       </div>
     </Box>
+    </>
   );
 };
 
