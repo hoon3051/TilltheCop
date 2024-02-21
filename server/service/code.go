@@ -1,6 +1,10 @@
 package service
 
 import (
+	"strconv"
+
+	"github.com/hoon3051/TilltheCop/server/initializer"
+	"github.com/hoon3051/TilltheCop/server/model"
 	"github.com/skip2/go-qrcode"
 )
 
@@ -14,4 +18,26 @@ func (s CodeService) GenerateQRCode(userID uint, reportID string) ([]byte, error
 	}
 
 	return qrCode, nil
+}
+
+func (s CodeService) CreateRecord(userID uint, reportID string) (record model.Record, err error) {
+	// Parse reportID
+	reportIDuint, err := strconv.ParseUint(reportID, 10, 64)
+	if err != nil {
+		return record, err
+	}
+
+
+	// Create record
+	record = model.Record{
+		User_id:   userID,
+		Report_id: uint(reportIDuint),
+	}
+	err = initializer.DB.Create(&record).Error
+	if err != nil {
+		return record, err
+	}
+
+	return record, nil
+
 }

@@ -17,3 +17,12 @@ export const getCode = async (reportID :string) => {
         throw error;
     }
 }
+
+export const scanCode = async (reportID :string) => {
+    try {
+        const response = await ApiManager.post("/code", {reportID});
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}

@@ -6,6 +6,7 @@ import RegisterPage from "../page/register";
 import UpdateProfilePage from "../page/updateProfile";
 import ProfilePage from "../page/profile";
 import CodePage from "../page/code";
+import ScanCodePage from "../page/scanCode";
 
 
 
@@ -25,6 +26,7 @@ const RouteComponent = () => {
         <Route path="/profile/update" element={<UpdateProfilePage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/code/:reportID" element={<CodePage />} />
+        <Route path="/code/scan" element={<ScanCodePage />} />
 
     </Routes>
   );

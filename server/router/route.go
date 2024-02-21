@@ -47,6 +47,7 @@ func CodeRouter(router *gin.Engine) {
 	router.Use(middleware.AuthToken())
 
 	router.GET("/code", CodeController.GenerateQRCode)
+	router.POST("/code", CodeController.ScanQRCode)
 }
 
 func SetupRouter() *gin.Engine {

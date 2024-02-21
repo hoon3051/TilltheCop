@@ -1,4 +1,4 @@
-// MapPage.tsx
+// Code: QR code page
 
 import React, { useState, useEffect } from 'react';
 import { getCode } from '../api/code';
