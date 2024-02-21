@@ -14,6 +14,7 @@ var OauthController controller.OauthController
 var ProfileController controller.ProfileController
 var MapController controller.MapController
 var AuthController controller.AuthController
+var CodeController controller.CodeController
 
 func AuthRouter(router *gin.Engine) {
 	router.POST("/refresh", AuthController.RefreshToken)
@@ -42,6 +43,12 @@ func MapRouter(router *gin.Engine) {
 	router.POST("/map", MapController.GetMap)
 }
 
+func CodeRouter(router *gin.Engine) {
+	router.Use(middleware.AuthToken())
+
+	router.GET("/code/:reportID", CodeController.GenerateQRCode)
+}
+
 func SetupRouter() *gin.Engine {
 	router := gin.Default()
 
@@ -60,6 +67,7 @@ func SetupRouter() *gin.Engine {
 	OauthRouter(router)
 	ProfileRouter(router)
 	MapRouter(router)
+	CodeRouter(router)
 
 	return router
 }
