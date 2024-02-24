@@ -27,14 +27,25 @@ func (ctr OauthController) GoogleLogin(c *gin.Context) {
 		return
 	}
 
-	//Save state string in session
+	// Get login and register URLs
+	callbackURL := c.Query("callbackURL")
+	registerURL := c.Query("registerURL")
+
+	//Save state string and callbackURL and registerURL in session
 	session := sessions.Default(c)
 	session.Set("oauthState", state)
+
+	
+	session.Set("callbackURL", callbackURL)
+	session.Set("registerURL", registerURL)
+
 	err = session.Save()
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Failed to save session"})
 		return
 	}
+
+	
 
 	// Redirect user to Google's consent page
 	url := oauthService.GetGoogleOauthURL(state)
@@ -100,8 +111,10 @@ func (ctr OauthController) GoogleCallback(c *gin.Context) {
 			return
 		}
 
+		registerURL := session.Get("registerURL").(string)
+		session.Delete("registerURL")
 		// Redirect to register page
-		c.Redirect(http.StatusTemporaryRedirect, "http://localhost:5173/oauth/register")
+		c.Redirect(http.StatusTemporaryRedirect, registerURL)
 
 	}
 	// if user exists (Login)
@@ -131,7 +144,9 @@ func (ctr OauthController) GoogleCallback(c *gin.Context) {
 
 	// URL 인코딩
 	tokenString := url.QueryEscape(string(tokenJson))
-	url := fmt.Sprintf("http://localhost:5173/oauth/google/callback#token=%s", tokenString)
+	callbackURL := session.Get("callbackURL").(string)
+	session.Delete("callbackURL")
+	url := fmt.Sprintf("%s#token=%s", callbackURL, tokenString)
 	c.Redirect(http.StatusTemporaryRedirect, url)
 
 }

@@ -1,13 +1,14 @@
 import { googleLogin } from '../api/oauth'; // Google OAuth 로그인을 처리하는 API 함수
-import { Box, Button, Typography, useTheme } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import GoogleIcon from '@mui/icons-material/Google';
 
 function LoginPage() {
-  const theme = useTheme();
 
   const handleGoogleLogin = async () => {
     try {
-      const response = await googleLogin();
+      const callbackURL = 'http://localhost:5173/oauth/google/callback';
+      const registerURL = 'http://localhost:5173/oauth/register';
+      const response = await googleLogin(callbackURL, registerURL);
       window.location.href = response.url;
       // 처리 로직 추가
     } catch (error) {
